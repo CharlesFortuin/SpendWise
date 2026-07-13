@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>{{ app_name }}</title>
+
+</head>
+
+<body>
+
+    <h1>{{ app_name }}</h1>
+    
+    <nav>
+        <a href="/">Home</a> |
+        <a href="/transactions">Transactions</a> |
+        <a href="/reports">Reports</a>
+    </nav>
+
+    <hr>
+
+    {% block content %}
+
+    {% endblock %}
+
+</body>
+
+</html>
