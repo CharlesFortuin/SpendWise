@@ -2,8 +2,36 @@
 
 {% block content %}
 
-<p>{{ subtitle }}</p>
+<section class="balance-section">
+    <h2>Current Balance</h2>
+    <p class="balance">R0.00</p>
+</section>
 
-<p>{{ version }}</p>
+<section class="dashboard-cards">
+
+    <article class="card">
+        <h3>Income</h3>
+        <p>R0.00</p>
+    </article>
+
+    <article class="card">
+        <h3>Expenses</h3>
+        <p>R0.00</p>
+    </article>
+
+    <article class="card">
+        <h3>Transactions</h3>
+        <p>0</p>
+    </article>
+
+</section>
+
+<section class="transactions-section">
+    <h2>Recent Transactions</h2>
+
+    <p>No transactions yet.</p>
+
+    <button>Add Transaction</button>
+</section>
 
 {% endblock %}

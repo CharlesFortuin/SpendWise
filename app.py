@@ -8,8 +8,7 @@ def home():
     return render_template(
         "index.html",
         app_name="SpendWise",
-        subtitle="Track your expenses like a professional",
-        version="Version 1.0")
+        )
 
 
 
