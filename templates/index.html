@@ -29,7 +29,15 @@
 <section class="transactions-section">
     <h2>Recent Transactions</h2>
 
-    <p>No transactions yet.</p>
+    {% for transaction in transactions %}
+    
+    <p>
+        {{ transaction["title"] }}
+        -
+        R{{ transaction["amount"] }}
+    </p>
+
+    {% endfor %}
 
     <button>Add Transaction</button>
 </section>
