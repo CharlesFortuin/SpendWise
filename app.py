@@ -1,8 +1,14 @@
-from flask import Flask, render_template
+from flask import (
+                   Flask, 
+                   render_template, 
+                   request, 
+                   redirect, 
+                   url_for)
 from utils.database import (
                             initialize_database, 
-                            add_transaction,
-                            get_transactions)
+                            insert_transaction,
+                            get_transactions,
+                            get_dashboard_data)
 
 app = Flask(__name__)
 
@@ -11,12 +17,37 @@ app = Flask(__name__)
 def home():
 
     transactions = get_transactions()
+    dashboard = get_dashboard_data()
 
     return render_template(
         "index.html",
         app_name="SpendWise",
-        transactions=transactions)
+        transactions=transactions,
+        dashboard=dashboard)
 
+@app.route("/add", methods=["GET","POST"])
+def add_transaction():
+    if request.method == "POST":
+        title = request.form["title"]
+        amount = float(request.form["amount"])
+        category = request.form["category"]
+        transaction_type = request.form["type"]
+        date = request.form["date"]
+
+        insert_transaction(
+            title,
+            amount,
+            category,
+            transaction_type,
+            date
+        )
+        
+        return redirect(url_for("home"))
+
+    return render_template(
+        "add_transaction.html",
+        app_name = "SpendWise"
+    )
 
 
 if __name__ == "__main__":

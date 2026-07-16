@@ -29,7 +29,7 @@ def initialize_database():
     connection.commit()
     connection.close()
 
-def add_transaction(title,amount,category,transaction_type,date):
+def insert_transaction(title,amount,category,transaction_type,date):
     connection = get_connection()
     cursor = connection.cursor()
 
@@ -62,3 +62,47 @@ def get_transactions():
     connection.close()
 
     return transactions
+
+def get_dashboard_data():
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    #Income    
+    cursor.execute(
+        """
+            SELECT SUM(amount)
+            FROM transactions
+            WHERE type = 'Income'
+        """
+        )
+    income = cursor.fetchone()[0] or 0
+
+    #Total expenses
+    cursor.execute(
+        """
+            SELECT SUM(amount)
+            FROM transactions
+            WHERE type = 'Expense'
+        """
+    )
+    expenses = cursor.fetchone()[0] or 0
+
+    #Number of Transactions
+    cursor.execute(
+        """
+            SELECT COUNT(*)
+            FROM transactions
+        """
+    )
+    transactions = cursor.fetchone()[0]
+
+    connection.close()
+
+    balance = income - expenses
+
+    return {
+        "income" : income,
+        "expenses" : expenses,
+        "balance" : balance,
+        "transactions" : transactions
+    }

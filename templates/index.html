@@ -4,24 +4,30 @@
 
 <section class="balance-section">
     <h2>Current Balance</h2>
-    <p class="balance">R0.00</p>
+    <p class="balance">
+        R{{ "%.2f"|format(dashboard["balance"]) }}
+    </p>
 </section>
 
 <section class="dashboard-cards">
 
     <article class="card">
         <h3>Income</h3>
-        <p>R0.00</p>
+        <p>
+            R{{ "%.2f"|format(dashboard["income"]) }}
+        </p>
     </article>
 
     <article class="card">
         <h3>Expenses</h3>
-        <p>R0.00</p>
+        <p>
+            R{{ "%.2f"|format(dashboard["expenses"]) }}
+        </p>
     </article>
 
     <article class="card">
         <h3>Transactions</h3>
-        <p>0</p>
+        <p>{{ dashboard["transactions"] }}</p>
     </article>
 
 </section>
@@ -29,17 +35,37 @@
 <section class="transactions-section">
     <h2>Recent Transactions</h2>
 
-    {% for transaction in transactions %}
-    
-    <p>
-        {{ transaction["title"] }}
-        -
-        R{{ transaction["amount"] }}
-    </p>
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Type</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
 
-    {% endfor %}
+        <tbody>
+            {% for transaction in transactions %}
+            <tr>
+                <td>{{ transaction["date"] }}</td>
 
-    <button>Add Transaction</button>
+                <td>{{ transaction["title"] }}</td>
+
+                <td>{{ transaction["category"] }}</td>
+
+                <td>{{ transaction["type"] }}</td>
+
+                <td>R{{ "%.2f"|format(transaction["amount"]) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ url_for('add_transaction') }}">
+        <button>Add Transaction</button>
+    </a>
 </section>
 
 {% endblock %}
