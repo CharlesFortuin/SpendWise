@@ -106,3 +106,17 @@ def get_dashboard_data():
         "balance" : balance,
         "transactions" : transactions
     }
+
+def remove_transaction(transaction_id):
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    cursor.execute(
+        """
+            DELETE FROM transactions
+            WHERE id=?
+        """,(transaction_id,)
+    )
+
+    connection.commit()
+    connection.close()

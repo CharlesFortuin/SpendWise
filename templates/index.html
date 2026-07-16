@@ -43,6 +43,7 @@
                 <th>Category</th>
                 <th>Type</th>
                 <th>Amount</th>
+                <th>Action</th>
             </tr>
         </thead>
 
@@ -58,6 +59,13 @@
                 <td>{{ transaction["type"] }}</td>
 
                 <td>R{{ "%.2f"|format(transaction["amount"]) }}</td>
+
+                <td>
+                    <a href="{{url_for('delete_transaction',
+                                        transaction_id=transaction['id'])}}">
+                        Delete
+                    </a>
+                </td>
             </tr>
             {% endfor %}
         </tbody>

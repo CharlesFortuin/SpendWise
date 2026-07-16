@@ -8,7 +8,8 @@ from utils.database import (
                             initialize_database, 
                             insert_transaction,
                             get_transactions,
-                            get_dashboard_data)
+                            get_dashboard_data,
+                            remove_transaction)
 
 app = Flask(__name__)
 
@@ -48,6 +49,11 @@ def add_transaction():
         "add_transaction.html",
         app_name = "SpendWise"
     )
+
+@app.route("/delete/<int:transaction_id>")
+def delete_transaction(transaction_id):
+    remove_transaction(transaction_id)
+    return redirect(url_for("home"))
 
 
 if __name__ == "__main__":
