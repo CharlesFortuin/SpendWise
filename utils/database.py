@@ -120,3 +120,41 @@ def remove_transaction(transaction_id):
 
     connection.commit()
     connection.close()
+
+def get_transaction(transaction_id):
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    cursor.execute(
+        """
+            SELECT *
+            FROM transactions
+            WHERE id=?
+        """,(transaction_id,)
+        )
+    
+    transaction = cursor.fetchone()
+
+    connection.close()
+
+    return transaction
+
+def update_transaction(transaction_id,title,amount,category,transaction_type,date):
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    cursor.execute(
+        """
+            UPDATE transactions
+            SET
+                title=?,
+                amount=?,
+                category=?,
+                type=?,
+                date=?
+            WHERE id=?
+        """,(title,amount,category,transaction_type,date,transaction_id)
+        )
+    
+    connection.commit()
+    connection.close()
