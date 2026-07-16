@@ -15,6 +15,23 @@ from utils.database import (
 
 app = Flask(__name__)
 
+CATEGORIES = [
+    "Food",
+    "Transport",
+    "Entertainment",
+    "Shopping",
+    "Utilities",
+    "Health",
+    "Salary",
+    "Education",
+    "Other"
+]
+
+TRANSACTION_TYPES = [
+    "Income",
+    "Expense"
+]
+
 
 @app.route("/")
 def home():
@@ -49,7 +66,9 @@ def add_transaction():
 
     return render_template(
         "add_transaction.html",
-        app_name = "SpendWise"
+        app_name = "SpendWise",
+        categories=CATEGORIES,
+        transaction_types=TRANSACTION_TYPES
     )
 
 @app.route("/delete/<int:transaction_id>")
@@ -82,7 +101,9 @@ def edit_transaction(transaction_id):
     return render_template(
         "edit_transaction.html",
         app_name="SpendWise",
-        transaction=transaction
+        transaction=transaction,
+        categories=CATEGORIES,
+        transaction_types=TRANSACTION_TYPES
     )
 
 

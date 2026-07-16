@@ -25,27 +25,26 @@
 
     <p>
         <label>Category</label><br>
-        <input type="text"
-               name="category"
-               value="{{ transaction['category'] }}"
-               required>
+        <select name="category" required>
+            {% for category in categories %}
+            <option value="{{ category }}"
+                    {% if category == transaction["category"] %}selected{% endif %}>
+                    {{ category }}
+            </option>
+            {% endfor %}
+        </select>
     </p>
 
     <p>
         <label>Type</label><br>
 
-        <select name="type">
-
-            <option value="Income"
-                {% if transaction["type"] == "Income" %}selected{% endif %}>
-                Income
+        <select name="type" required>
+            {% for transaction_type in transaction_types %}
+            <option value="{{ transaction_type }}"
+                    {% if transaction_type == transaction['type'] %}selected{% endif %}>
+                    {{ transaction_type }}
             </option>
-
-            <option value="Expense"
-                {% if transaction["type"] == "Expense" %}selected{% endif %}>
-                Expense
-            </option>
-
+            {% endfor %}
         </select>
 
     </p>

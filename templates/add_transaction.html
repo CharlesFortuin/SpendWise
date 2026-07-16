@@ -16,14 +16,23 @@
 
     <p>
         <label>Category</label>
-        <input type="text" name="category" required>
+        <select name="category" required>
+            {% for category in categories %}
+            <option value="{{ category }}">
+                {{ category }}
+            </option>
+            {% endfor %}
+        </select>
     </p>
 
     <p>
         <label>Type</label>
-        <select name="type">
-            <option value="Income">Income</option>
-            <option value="Expense">Expense</option>
+        <select name="type" required>
+            {% for transaction_type in transaction_types %}
+            <option value="{{ transaction_type }}">
+                {{ transaction_type }}
+            </option>
+            {% endfor %}
         </select>
     </p>
 
