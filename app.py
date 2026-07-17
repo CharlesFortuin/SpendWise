@@ -11,7 +11,8 @@ from utils.database import (
                             get_dashboard_data,
                             remove_transaction,
                             update_transaction,
-                            get_transaction)
+                            get_transaction,
+                            get_filtered_transactions)
 
 app = Flask(__name__)
 
@@ -36,14 +37,23 @@ TRANSACTION_TYPES = [
 @app.route("/")
 def home():
 
-    transactions = get_transactions()
+    search = request.args.get("search","")
+    selected_type = request.args.get("type","")
+    selected_category = request.args.get("category","")
+
+    transactions = get_filtered_transactions(search,selected_type,selected_category)
     dashboard = get_dashboard_data()
 
     return render_template(
         "index.html",
         app_name="SpendWise",
         transactions=transactions,
-        dashboard=dashboard)
+        dashboard=dashboard,
+        categories=CATEGORIES,
+        transaction_types=TRANSACTION_TYPES,
+        search=search,
+        selected_type=selected_type,
+        selected_category=selected_category)
 
 @app.route("/add", methods=["GET","POST"])
 def add_transaction():

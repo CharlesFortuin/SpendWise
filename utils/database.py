@@ -139,6 +139,36 @@ def get_transaction(transaction_id):
 
     return transaction
 
+def get_filtered_transactions(search,selected_type,selected_category):
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    query="""
+            SELECT *
+            FROM transactions
+            WHERE title LIKE ?
+          """
+    
+    parameters = [f"%{search}%"]
+
+    if selected_type:
+        query += " AND type = ?"
+        parameters.append(selected_type)
+    
+    if selected_category:
+        query += " AND category = ?"
+        parameters.append(selected_category)
+    
+    query += " ORDER BY date DESC"
+    
+    cursor.execute(query, parameters)
+
+    transactions = cursor.fetchall()
+
+    connection.close()
+
+    return transactions
+
 def update_transaction(transaction_id,title,amount,category,transaction_type,date):
     connection = get_connection()
     cursor = connection.cursor()
