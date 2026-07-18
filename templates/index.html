@@ -33,6 +33,18 @@
 </section>
 
 <section class="transactions-section">
+    <h2>Expenses by Category</h2>
+    <div>
+        <canvas id="expenseChart"></canvas>
+    </div>
+    <script>
+        const expenses = {{ expenses_by_category | tojson }};
+    </script>
+
+    <script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+</section>
+
+<section class="transactions-section">
     <h2>Recent Transactions</h2>
 
     <form method="GET" class="filter-form">

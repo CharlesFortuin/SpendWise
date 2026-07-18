@@ -107,6 +107,24 @@ def get_dashboard_data():
         "transactions" : transactions
     }
 
+def get_expenses_by_category():
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    cursor.execute(
+        """
+            SELECT category,SUM(amount) AS total
+            FROM transactions
+            WHERE type = 'Expense'
+            GROUP BY category
+            ORDER BY total DESC
+        """
+    )
+
+    expenses = cursor.fetchall()
+    connection.close()
+    return [dict(expense) for expense in expenses]
+
 def remove_transaction(transaction_id):
     connection = get_connection()
     cursor = connection.cursor()

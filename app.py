@@ -12,7 +12,8 @@ from utils.database import (
                             remove_transaction,
                             update_transaction,
                             get_transaction,
-                            get_filtered_transactions)
+                            get_filtered_transactions,
+                            get_expenses_by_category)
 
 app = Flask(__name__)
 
@@ -43,6 +44,7 @@ def home():
 
     transactions = get_filtered_transactions(search,selected_type,selected_category)
     dashboard = get_dashboard_data()
+    expenses_by_category = get_expenses_by_category()
 
     return render_template(
         "index.html",
@@ -53,7 +55,8 @@ def home():
         transaction_types=TRANSACTION_TYPES,
         search=search,
         selected_type=selected_type,
-        selected_category=selected_category)
+        selected_category=selected_category,
+        expenses_by_category=expenses_by_category)
 
 @app.route("/add", methods=["GET","POST"])
 def add_transaction():
