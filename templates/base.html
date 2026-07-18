@@ -17,15 +17,37 @@
         <h1>{{ app_name }}</h1>
         
         <nav>
-            <a href="/">Home</a> |
-            <a href="/transactions">Transactions</a> |
-            <a href="/reports">Reports</a>
+            <a  href="{{ url_for('home') }}"
+                class="{% if active_page == 'home' %}active{% endif %}"
+            >
+                Home
+            </a> |
+            <a  href="{{ url_for('add_transaction') }}"
+                class="{% if active_page == 'transactions' %}active{% endif %}"
+            >
+                Transactions
+            </a> |
+            <a  href="{{ url_for('budgets') }}"
+                class="{% if active_page == 'budgets' %}active{% endif %}"
+            >
+                Budgets
+            </a> 
         </nav>
 
     </header>
     
 
     <hr>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flash-messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
     
     <main>
         {% block content %}

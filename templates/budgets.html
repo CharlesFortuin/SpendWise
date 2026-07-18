@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Budgets</h2>
+
+<form method="POST">
+
+    {% for category in categories %}
+
+    <p>
+        <label>{{ category }}</label><br>
+
+        <input
+            type="number"
+            name="{{ category }}"
+            step="0.01"
+            min="0"
+            placeholder="0.00"
+            value="{{ budgets.get(category, '') }}"
+        >
+    </p>
+
+    {% endfor %}
+
+    <button type="submit">
+        Save Budgets
+    </button>
+
+</form>
+
+{% endblock %}

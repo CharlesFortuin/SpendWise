@@ -15,16 +15,23 @@ def initialize_database():
     cursor = connection.cursor()
 
     cursor.execute("""
-                   CREATE TABLE IF NOT EXISTS transactions 
-                   (
-                      id INTEGER PRIMARY KEY AUTOINCREMENT,
-                      title TEXT NOT NULL,
-                      amount REAL NOT NULL,
-                      category TEXT NOT NULL,
-                      type TEXT NOT NULL,
-                      date TEXT NOT NULL
-                   )
-            """)
+                   CREATE TABLE IF NOT EXISTS transactions (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        title TEXT NOT NULL,
+                        amount REAL NOT NULL,
+                        category TEXT NOT NULL,
+                        type TEXT NOT NULL,
+                        date TEXT NOT NULL
+                   );
+                """)
+    cursor.execute(
+        """
+            CREATE TABLE IF NOT EXISTS budgets (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                category TEXT NOT NULL UNIQUE,
+                budget REAL NOT NULL
+            );
+        """)
     
     connection.commit()
     connection.close()
@@ -204,5 +211,44 @@ def update_transaction(transaction_id,title,amount,category,transaction_type,dat
         """,(title,amount,category,transaction_type,date,transaction_id)
         )
     
+    connection.commit()
+    connection.close()
+
+def get_budgets():
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    cursor.execute(
+        """
+            SELECT *
+            FROM budgets
+        """
+    )
+
+    rows = cursor.fetchall()
+
+    connection.close()
+
+    budgets = {}
+
+    for row in rows:
+        budgets[row["category"]] = row["budget"]
+    
+    return budgets
+
+def save_budget(category,budget):
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    cursor.execute(
+        """
+            INSERT INTO budgets (category,budget)
+            VALUES (?, ?)
+            ON CONFLICT(category)
+            DO UPDATE SET
+                budget = excluded.budget
+        """,(category,budget)
+    )
+
     connection.commit()
     connection.close()

@@ -39,6 +39,11 @@ nav a:hover {
     text-decoration: underline;
 }
 
+nav a.active {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
 /* Main content */
 
 main {
@@ -181,6 +186,22 @@ tr:hover {
     height: 450px;
     max-width: 100%;
     margin: 20px auto;
+}
+
+.flash-messages {
+    list-style: none;
+    padding: 0;
+    margin: 20px;
+}
+
+.flash-messages li {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    font-weight: bold;
 }
 
 
