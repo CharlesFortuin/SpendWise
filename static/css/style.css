@@ -49,7 +49,7 @@ main {
 
 /* Balance section */
 
-.balance_section {
+.balance-section {
     background-color: white;
     padding: 30px;
     border-radius: 10px;
@@ -95,6 +95,44 @@ main {
 
 .transactions-section h2 {
     margin-bottom: 15px;
+}
+
+/* Filter Form */
+
+.filter-form {
+    display: flex;
+    align-items: end;
+    gap: 20px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.filter-form label {
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+    gap: 6px;
+}
+
+.filter-form input, .filter-form select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    min-width: 180px;
+}
+
+.filter-form a {
+    text-decoration: none;
+    color: #555;
+    font-weight: bold;
+}
+
+.filter-form a:hover {
+    text-decoration: underline;
+}
+
+.filter-form button {
+    margin-top: 0;
 }
 
 button {
