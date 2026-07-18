@@ -119,7 +119,8 @@
                     </a>
                     |
                     <a href="{{url_for('delete_transaction',
-                                        transaction_id=transaction['id'])}}">
+                                        transaction_id=transaction['id'])}}"
+                        onclick="return confirm('Are you sure you want to delete this transaction?');">
                         Delete
                     </a>
                 </td>
