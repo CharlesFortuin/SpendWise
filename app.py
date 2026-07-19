@@ -16,7 +16,8 @@ from utils.database import (
                             get_filtered_transactions,
                             get_expenses_by_category,
                             get_budgets,
-                            save_budget)
+                            save_budget,
+                            get_expenses_by_category_dict)
 
 app = Flask(__name__)
 
@@ -141,11 +142,13 @@ def budgets():
         return redirect(url_for("budgets"))
 
     budgets = get_budgets()
+    expenses = get_expenses_by_category_dict()
 
     return render_template(
         "budgets.html",
         app_name = "SpendWise",
         budgets=budgets,
+        expenses=expenses,
         categories=CATEGORIES,
         active_page="budgets"
     )

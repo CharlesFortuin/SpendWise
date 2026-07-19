@@ -6,24 +6,63 @@
 
 <form method="POST">
 
-    {% for category in categories %}
+    <div class="budget-container">
 
-    <p>
-        <label>{{ category }}</label><br>
+        {% for category in categories %}
 
-        <input
-            type="number"
-            name="{{ category }}"
-            step="0.01"
-            min="0"
-            placeholder="0.00"
-            value="{{ budgets.get(category, '') }}"
-        >
-    </p>
+        {% set budget = budgets.get(category, 0) %}
+        {% set spent = expenses.get(category, 0) %}
+        {% set remaining = budget - spent %}
 
-    {% endfor %}
+        {% if budget > 0 %}
+            {% set percentage = (spent / budget) * 100 %}
+        {% else %}
+            {% set percentage = 0 %}
+        {% endif %}
 
-    <button type="submit">
+        <div class="budget-card">
+
+            <h3>{{ category }}</h3>
+
+            <p><strong>Budget:</strong> R{{ "%.2f"|format(budget) }}</p>
+            <p><strong>Spent:</strong> R{{ "%.2f"|format(spent) }}</p>
+
+            <p class="{% if remaining < 0 %}negative{% else %}positive{% endif %}">
+                <strong>Remaining:</strong> R{{ "%.2f"|format(remaining) }}
+            </p>
+
+            <p><strong>Used:</strong> {{ "%.0f"|format(percentage) }}%</p>
+
+            <div class="progress-bar">
+                <div
+                    class="progress-fill
+                    {% if percentage >= 100 %}
+                        over-budget
+                    {% elif percentage >= 80 %}
+                        warning
+                    {% endif %}"
+                    style="width: {{ percentage if percentage <= 100 else 100 }}%;">
+                </div>
+            </div>
+
+            <label>Edit Budget</label><br>
+
+            <input
+                type="number"
+                name="{{ category }}"
+                step="0.01"
+                min="0"
+                placeholder="0.00"
+                value="{{ budget }}"
+            >
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    <button class="save-budgets" type="submit">
         Save Budgets
     </button>
 

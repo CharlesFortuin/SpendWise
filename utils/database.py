@@ -132,6 +132,16 @@ def get_expenses_by_category():
     connection.close()
     return [dict(expense) for expense in expenses]
 
+def get_expenses_by_category_dict():
+    expenses = get_expenses_by_category()
+
+    expense_dict = {}
+
+    for expense in expenses:
+        expense_dict[expense["category"]] = expense["total"]
+
+    return expense_dict
+
 def remove_transaction(transaction_id):
     connection = get_connection()
     cursor = connection.cursor()
