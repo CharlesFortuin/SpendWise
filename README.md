@@ -173,4 +173,5 @@ This project helped me gain practical experience with:
 
 GitHub: https://github.com/CharlesFortuin
 
-LinkedIn: charles-a-fortuin
+LinkedIn: www.linkedin.com/in/charles-a-fortuin
+
