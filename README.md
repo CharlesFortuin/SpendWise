@@ -10,19 +10,19 @@ The application allows users to record transactions, categorize income and expen
 
 ### Dashboard
 
-![Dashboard](screenshots/home-chart-table.png)
+![Dashboard](screenshots/home-chart-table.PNG)
 
 ### Add Transaction
 
-![Add Transaction](screenshots/add-transaction.png)
+![Add Transaction](screenshots/add-transaction.PNG)
 
 ### Budget Tracking
 
-![Budget Tracking](screenshots/budget-view.png)
+![Budget Tracking](screenshots/budget-view.PNG)
 
 ### Spending Chart
 
-![Spending Chart](screenshots/home-chart.png)
+![Spending Chart](screenshots/home-chart.PNG)
 
 ## Features
 
